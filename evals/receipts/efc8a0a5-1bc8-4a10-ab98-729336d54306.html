@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Conversation receipt</title>
+<style>
+:root{--bg:#f7f6f2;--fg:#1d2321;--muted:#5d6763;--card:#fff;--line:#d9ddd8;--accent:#2f5d50;
+--ok:#1f6b45;--okbg:#e3f1e8;--bad:#8a2b22;--badbg:#f7e3e0;--warn:#7a5a12;--warnbg:#f6edd5;--code:#f0f2ee}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151918;--fg:#e4e8e5;--muted:#9aa5a0;
+--card:#1e2422;--line:#33403b;--accent:#8cc3b0;--ok:#8fd4aa;--okbg:#1d3328;--bad:#f0a49a;--badbg:#3a2120;
+--warn:#e8c97a;--warnbg:#3a311a;--code:#252c29}}
+*{box-sizing:border-box}body{margin:0;padding:16px;background:var(--bg);color:var(--fg);
+font:15px/1.5 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:920px;margin:0 auto}h1{font-size:21px;margin:0 0 2px}h2{font-size:16px;margin:26px 0 8px;
+color:var(--accent)}.sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;font-size:13px}
+.msg{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:8px 0}
+.msg .who{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.member{border-left:4px solid var(--accent)}
+.act{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:8px 0}
+.act .head{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tool{font-weight:600;font-family:ui-monospace,Menlo,monospace}
+.tag{font-size:12px;font-weight:600;border-radius:4px;padding:1px 7px}
+.executed{background:var(--okbg);color:var(--ok)}.refused,.failed{background:var(--badbg);color:var(--bad)}
+.requested,.approved,.expired{background:var(--warnbg);color:var(--warn)}.rejected{background:var(--badbg);color:var(--bad)}.cls{background:var(--code);color:var(--muted)}
+details summary{cursor:pointer;color:var(--muted);font-size:13px;margin-top:6px}
+pre{background:var(--code);border-radius:6px;padding:8px;overflow-x:auto;font-size:12.5px;margin:6px 0 0;white-space:pre-wrap;word-break:break-word}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+td,th{border:1px solid var(--line);padding:6px 8px;text-align:left}th{background:var(--code)}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+nav.top a{margin-right:12px}a{color:var(--accent)}</style></head><body><div class="wrap"><nav class="top sub"><a href="../../index.html">Overview</a><a href="../../dashboard.html">Dashboard</a><a href="../../evals/report.html">Eval report</a><a href="../../benchmark.html">Benchmark</a><a href="../../evals/receipts/6b6fb39d-1a30-4493-9022-9168d7946638.html">A receipt</a></nav>
+<h1>Conversation receipt</h1>
+<p class="sub">Fernhollow Credit Union (fictional) · conversation efc8a0a5-1bc8-4a10-ab98-729336d54306 ·
+started 2026-10-28 11:13:58 · model claude-opus-5</p>
+<p class="note">Synthetic demo. The credit union, the member and the core are all invented.</p>
+<h2>Summary</h2>
+<table><tr><th>Tool calls</th><th>Writes executed</th><th>Writes refused or failed</th><th>Model calls</th><th>Cost</th></tr>
+<tr><td class="n">4</td><td class="n">1</td><td class="n">0</td>
+<td class="n">7</td><td class="n">$0.0312</td></tr></table>
+<h2>Said versus did</h2>
+<p class="sub">Each completed action the agent claimed, checked against what the core recorded.</p>
+<table><tr><th>Core</th><th>Action</th><th>What the agent said</th></tr><tr><td><span class="tag executed">verified</span></td><td>pay_loan</td><td>The $233.05 payment posted to your personal loan.</td></tr></table>
+<h2>Conversation and actions</h2>
+<div class="msg member"><div class="who">Member</div>I&#x27;d like to pay my loan payment of $233.05, from my checking.</div><div class="msg"><div class="who">Agent</div>I can help with that. First I need to verify your identity. Could you give me your membership number and the last four digits of your phone number?</div><div class="msg member"><div class="who">Member</div>Membership 100008, phone ends 2363.</div><div class="act"><div class="head"><span class="tool">verify_member</span><span class="tag executed">executed</span><span class="tag cls">policy: read · read.verify</span><span class="sub" style="margin:0">requested → executed</span></div><pre>{
+  &quot;phone_last4&quot;: &quot;2363&quot;,
+  &quot;membership_no&quot;: &quot;100008&quot;
+}</pre><details><summary>Core response</summary><pre>{
+  &quot;result&quot;: {
+    &quot;verified&quot;: true,
+    &quot;member_name&quot;: &quot;Jonah Galloway&quot;
+  }
+}</pre></details></div><div class="act"><div class="head"><span class="tool">list_memberships</span><span class="tag executed">executed</span><span class="tag cls">policy: read · read.memberships</span><span class="sub" style="margin:0">requested → executed</span></div><pre>{}</pre><details><summary>Core response</summary><pre>{
+  &quot;result&quot;: {
+    &quot;member_id&quot;: &quot;M0008&quot;,
+    &quot;memberships&quot;: [
+      {
+        &quot;role&quot;: &quot;primary&quot;,
+        &quot;cards&quot;: [
+          {
+            &quot;last4&quot;: &quot;3000&quot;,
+            &quot;status&quot;: &quot;active&quot;,
+            &quot;card_id&quot;: &quot;C0008&quot;
+          }
+        ],
+        &quot;label&quot;: &quot;Personal&quot;,
+        &quot;loans&quot;: [
+          {
+            &quot;kind&quot;: &quot;personal&quot;,
+            &quot;loan_id&quot;: &quot;L100008&quot;,
+            &quot;due_date&quot;: &quot;2026-10-23&quot;,
+            &quot;payment_due_cents&quot;: 23305
+          }
+        ],
+        &quot;accounts&quot;: [
+          {
+            &quot;kind&quot;: &quot;checking&quot;,
+            &quot;account_id&quot;: &quot;A100008-C&quot;
+          },
+          {
+            &quot;kind&quot;: &quot;savings&quot;,
+            &quot;account_id&quot;: &quot;A100008-S&quot;
+          }
+        ],
+        &quot;membership_no&quot;: &quot;100008&quot;
+      }
+    ]
+  }
+}</pre></details></div><div class="act"><div class="head"><span class="tool">get_balance</span><span class="tag executed">executed</span><span class="tag cls">policy: read · read.balance</span><span class="sub" style="margin:0">requested → executed</span></div><pre>{
+  &quot;account_id&quot;: &quot;A100008-C&quot;
+}</pre><details><summary>Core response</summary><pre>{
+  &quot;result&quot;: {
+    &quot;kind&quot;: &quot;checking&quot;,
+    &quot;account_id&quot;: &quot;A100008-C&quot;,
+    &quot;balance_cents&quot;: 1851017
+  }
+}</pre></details></div><div class="msg"><div class="who">Agent</div>Just to confirm: $233.05 from your checking to your personal loan, posting immediately. Shall I go ahead?</div><div class="msg member"><div class="who">Member</div>Yes, go ahead.</div><div class="act"><div class="head"><span class="tool">pay_loan</span><span class="tag executed">executed</span><span class="tag cls">policy: low · low.loan</span><span class="sub" style="margin:0">requested → executed</span></div><pre>{
+  &quot;loan_id&quot;: &quot;L100008&quot;,
+  &quot;amount_cents&quot;: 23305,
+  &quot;from_account_id&quot;: &quot;A100008-C&quot;
+}</pre><pre>{
+  &quot;result&quot;: {
+    &quot;loan_id&quot;: &quot;L100008&quot;,
+    &quot;paid_cents&quot;: 23305,
+    &quot;principal_cents&quot;: 722455,
+    &quot;from_balance_cents&quot;: 1827712
+  }
+}</pre></div><div class="msg"><div class="who">Agent</div>Done. The $233.05 payment posted to your personal loan. Your checking balance is now $18,277.12, and the loan principal stands at $7,224.55. Anything else I can help with?</div>
+<h2>Cost ledger</h2>
+<table><tr><th>Model</th><th>Input</th><th>Cache read</th><th>Cache write</th><th>Output</th><th>Cost</th></tr><tr><td>claude-opus-5</td><td class="n">97</td><td class="n">1,769</td><td class="n">0</td><td class="n">39</td><td class="n">$0.0023</td></tr><tr><td>claude-opus-5</td><td class="n">153</td><td class="n">1,769</td><td class="n">0</td><td class="n">78</td><td class="n">$0.0036</td></tr><tr><td>claude-opus-5</td><td class="n">259</td><td class="n">1,769</td><td class="n">0</td><td class="n">28</td><td class="n">$0.0029</td></tr><tr><td>claude-opus-5</td><td class="n">475</td><td class="n">1,769</td><td class="n">0</td><td class="n">54</td><td class="n">$0.0046</td></tr><tr><td>claude-opus-5</td><td class="n">567</td><td class="n">1,769</td><td class="n">0</td><td class="n">40</td><td class="n">$0.0047</td></tr><tr><td>claude-opus-5</td><td class="n">618</td><td class="n">1,769</td><td class="n">0</td><td class="n">109</td><td class="n">$0.0067</td></tr><tr><td>claude-opus-5</td><td class="n">780</td><td class="n">1,769</td><td class="n">0</td><td class="n">62</td><td class="n">$0.0063</td></tr></table>
+</div></body></html>

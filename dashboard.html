@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Dashboard</title>
+<style>
+:root{--bg:#f7f6f2;--fg:#1d2321;--muted:#5d6763;--card:#fff;--line:#d9ddd8;--accent:#2f5d50;
+--ok:#1f6b45;--okbg:#e3f1e8;--bad:#8a2b22;--badbg:#f7e3e0;--warn:#7a5a12;--warnbg:#f6edd5;--code:#f0f2ee}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151918;--fg:#e4e8e5;--muted:#9aa5a0;
+--card:#1e2422;--line:#33403b;--accent:#8cc3b0;--ok:#8fd4aa;--okbg:#1d3328;--bad:#f0a49a;--badbg:#3a2120;
+--warn:#e8c97a;--warnbg:#3a311a;--code:#252c29}}
+*{box-sizing:border-box}body{margin:0;padding:16px;background:var(--bg);color:var(--fg);
+font:15px/1.5 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:920px;margin:0 auto}h1{font-size:21px;margin:0 0 2px}h2{font-size:16px;margin:26px 0 8px;
+color:var(--accent)}.sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;font-size:13px}
+.msg{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:8px 0}
+.msg .who{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.member{border-left:4px solid var(--accent)}
+.act{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:8px 0}
+.act .head{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tool{font-weight:600;font-family:ui-monospace,Menlo,monospace}
+.tag{font-size:12px;font-weight:600;border-radius:4px;padding:1px 7px}
+.executed{background:var(--okbg);color:var(--ok)}.refused,.failed{background:var(--badbg);color:var(--bad)}
+.requested,.approved,.expired{background:var(--warnbg);color:var(--warn)}.rejected{background:var(--badbg);color:var(--bad)}.cls{background:var(--code);color:var(--muted)}
+details summary{cursor:pointer;color:var(--muted);font-size:13px;margin-top:6px}
+pre{background:var(--code);border-radius:6px;padding:8px;overflow-x:auto;font-size:12.5px;margin:6px 0 0;white-space:pre-wrap;word-break:break-word}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+td,th{border:1px solid var(--line);padding:6px 8px;text-align:left}th{background:var(--code)}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:12px 0}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.panel h3{margin:0 0 4px;font-size:15px}.panel p{margin:0;font-size:14px;color:var(--muted)}
+.big{font-size:26px;font-weight:700;color:var(--accent)}.ticks{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0}
+.tk{width:18px;height:18px;border-radius:4px;background:var(--ok)}.tk.red{background:var(--bad)}
+a{color:var(--accent)}pre.alert{border-left:4px solid var(--bad)}
+.watch a{display:inline-block;background:var(--accent);color:var(--card);text-decoration:none;font-weight:600;padding:8px 14px;border-radius:6px}nav.top a{margin-right:12px}
+</style></head><body><div class="wrap">
+<nav class="top sub"><a href="index.html">Overview</a><a href="dashboard.html">Dashboard</a><a href="evals/report.html">Eval report</a><a href="benchmark.html">Benchmark</a><a href="evals/receipts/6b6fb39d-1a30-4493-9022-9168d7946638.html">A receipt</a></nav>
+<h1>Dashboard</h1>
+<p class="sub">As of the export. Model claude-opus-5, frozen eval set.</p>
+<div class="grid">
+<div class="panel"><h3>Eval pass rate</h3><div class="big">59/60</div><p>cases pass every
+column that applies</p></div>
+<div class="panel"><h3>Cost per conversation</h3><div class="big">$0.025</div><p>p50; p95
+$0.040; whole set $1.44</p></div>
+<div class="panel"><h3>Model call latency</h3><div class="big">1.9 s</div><p>p50;
+p95 3.4 s</p></div>
+<div class="panel"><h3>Budget guard</h3><div class="big">$0.20</div><p>per conversation; at that point the
+runtime hands the member to a person with the context</p></div>
+</div>
+<h2>Canary: last 5 ticks on this code (37c5e35)</h2>
+<p class="sub">One scripted conversation per tick through the real runtime, policy, core and checker, hourly. Silent
+when clean; one alert on the first red tick. Ticks from earlier code are not shown: a tick only proves something
+about the code that ran it.</p>
+<div class="ticks"><span class='tk' title='Oct 28 14:40 PT'></span><span class='tk red' title='Oct 28 14:40 PT'></span><span class='tk' title='Oct 28 14:40 PT'></span><span class='tk red' title='Oct 28 14:40 PT'></span><span class='tk' title='Oct 28 14:40 PT'></span></div>
+<h2>Both guards, proven red</h2><p class='sub'>Two deliberate faults, injected one at a time on this code. Each must be caught by its own guard before the member is told anything false.</p><div class="panel"><h3>The core lies</h3>
+<p>The fake core was told to answer every write with &quot;done&quot; and save nothing.</p><p><b>Must be caught by:</b> The read-back: before the member hears &quot;done&quot;, the runtime looks the write up in the core.</p>
+<p><b>Caught</b> at Oct 28 14:40 PT; the member went to a person, and the tick
+turned red with one alert, word for word:</p><pre class="alert">CANARY RED: completed, handoff. expected freeze_card {&#x27;card_id&#x27;: &#x27;C0005&#x27;} did not complete in the core; expected transfer {&#x27;from_account_id&#x27;: &#x27;A100005-C&#x27;, &#x27;to_account_id&#x27;: &#x27;A100005-S&#x27;, &#x27;amount_cents&#x27;: 5000} did not complete in the core; handed off when it should have finished: read-back failed for freeze_card: the core has no write under this key</pre></div><div class="panel"><h3>The model lies</h3>
+<p>The canary&#x27;s scripted model was told to say the $50 moved without ever asking for the transfer.</p><p><b>Must be caught by:</b> The live said-versus-did check: every reply is checked against the core before it is sent.</p>
+<p><b>Caught</b> at Oct 28 14:40 PT; the member went to a person, and the tick
+turned red with one alert, word for word:</p><pre class="alert">CANARY RED: completed, handoff. expected transfer {&#x27;from_account_id&#x27;: &#x27;A100005-C&#x27;, &#x27;to_account_id&#x27;: &#x27;A100005-S&#x27;, &#x27;amount_cents&#x27;: 5000} did not complete in the core; handed off when it should have finished: held a reply claiming an unrecorded transfer</pre></div></div></body></html>

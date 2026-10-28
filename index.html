@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Every action has a receipt</title>
+<style>
+:root{--bg:#f7f6f2;--fg:#1d2321;--muted:#5d6763;--card:#fff;--line:#d9ddd8;--accent:#2f5d50;
+--ok:#1f6b45;--okbg:#e3f1e8;--bad:#8a2b22;--badbg:#f7e3e0;--warn:#7a5a12;--warnbg:#f6edd5;--code:#f0f2ee}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151918;--fg:#e4e8e5;--muted:#9aa5a0;
+--card:#1e2422;--line:#33403b;--accent:#8cc3b0;--ok:#8fd4aa;--okbg:#1d3328;--bad:#f0a49a;--badbg:#3a2120;
+--warn:#e8c97a;--warnbg:#3a311a;--code:#252c29}}
+*{box-sizing:border-box}body{margin:0;padding:16px;background:var(--bg);color:var(--fg);
+font:15px/1.5 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:920px;margin:0 auto}h1{font-size:21px;margin:0 0 2px}h2{font-size:16px;margin:26px 0 8px;
+color:var(--accent)}.sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;font-size:13px}
+.msg{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:8px 0}
+.msg .who{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.member{border-left:4px solid var(--accent)}
+.act{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:8px 0}
+.act .head{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tool{font-weight:600;font-family:ui-monospace,Menlo,monospace}
+.tag{font-size:12px;font-weight:600;border-radius:4px;padding:1px 7px}
+.executed{background:var(--okbg);color:var(--ok)}.refused,.failed{background:var(--badbg);color:var(--bad)}
+.requested,.approved,.expired{background:var(--warnbg);color:var(--warn)}.rejected{background:var(--badbg);color:var(--bad)}.cls{background:var(--code);color:var(--muted)}
+details summary{cursor:pointer;color:var(--muted);font-size:13px;margin-top:6px}
+pre{background:var(--code);border-radius:6px;padding:8px;overflow-x:auto;font-size:12.5px;margin:6px 0 0;white-space:pre-wrap;word-break:break-word}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+td,th{border:1px solid var(--line);padding:6px 8px;text-align:left}th{background:var(--code)}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:12px 0}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.panel h3{margin:0 0 4px;font-size:15px}.panel p{margin:0;font-size:14px;color:var(--muted)}
+.big{font-size:26px;font-weight:700;color:var(--accent)}.ticks{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0}
+.tk{width:18px;height:18px;border-radius:4px;background:var(--ok)}.tk.red{background:var(--bad)}
+a{color:var(--accent)}pre.alert{border-left:4px solid var(--bad)}
+.watch a{display:inline-block;background:var(--accent);color:var(--card);text-decoration:none;font-weight:600;padding:8px 14px;border-radius:6px}nav.top a{margin-right:12px}
+</style></head><body><div class="wrap">
+<nav class="top sub"><a href="index.html">Overview</a><a href="dashboard.html">Dashboard</a><a href="evals/report.html">Eval report</a><a href="benchmark.html">Benchmark</a><a href="evals/receipts/6b6fb39d-1a30-4493-9022-9168d7946638.html">A receipt</a></nav>
+<h1>Every action has a receipt</h1>
+<p class="sub">A member-service agent for a fictional credit union that completes core-banking actions
+(freeze a card, pay a loan, move money, change an address) and proves each one.</p>
+<p class="watch"><a href="tour.html">&#9654; Watch the tour (1:45, no sound)</a></p>
+<p class="note">Everything here is synthetic. Fernhollow Credit Union, its members and their accounts are
+invented, and the "core" is a small fake written for this demo; it does not model any vendor's core.
+Nothing here is a compliance claim.</p>
+<div class="grid">
+<div class="panel"><h3>It acts, it does not narrate</h3><p>The model only asks for a tool. Code checks each call
+against a policy first; no matching rule means refused. Larger payments and every address change wait for a
+person, who approves the exact payload.</p></div>
+<div class="panel"><h3>It proves what it did</h3><p>Every write carries an idempotency key and lands as a row,
+and the runtime reads it back from the core before the member hears "done".
+The <a href="evals/receipts/6b6fb39d-1a30-4493-9022-9168d7946638.html">receipt</a> shows what the agent said, what it called, which policy applied, who
+approved and what it cost. A pattern checker reads every reply before it is sent and holds any "done" the core cannot back.</p></div>
+<div class="panel"><h3>Containment, measured honestly</h3><p>59 of 60 scripted
+conversations pass. Whether each action happened is scored from the core's own rows, never from what the
+agent said. Containment means completed, not kept away from a person. <a href="evals/report.html">Eval report</a>.</p></div>
+<div class="panel"><h3>A model change is a measured decision</h3><p>Keep claude-opus-5: claude-sonnet-5 passed 54 of 60 against 59, more than the 2-case rerun noise.
+<a href="benchmark.html">Benchmark</a>.</p></div>
+</div>
+<h2>What is real and what is not</h2>
+<table><tr><th>Real</th><th>Not real</th></tr>
+<tr><td>The agent loop, policy engine, approval gate, idempotent writes, audit rows, the eval set and scorer,
+the cost ledger, the canary</td><td>The credit union, its members, the core banking system, the approver
+(one person, no sign-in)</td></tr>
+<tr><td>Model calls to pinned Claude models, with their real cost and latency</td><td>Any production traffic
+or real money</td></tr></table>
+<p class="sub">Written from scratch for this demo by Owen Carlsen, with Claude Code. Static export; the numbers
+are as of the export.</p></div></body></html>
